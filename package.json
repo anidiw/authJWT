@@ -1,0 +1,26 @@
+{
+  "name": "authjwt",
+  "version": "1.0.0",
+  "description": "authentication using JWT",
+  "main": "server.js",
+  "scripts": {
+	"start": "nodemon server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aniruddha",
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^2.2.0",
+    "express": "^4.14.0",
+    "mongoose": "^4.11.9",
+    "pug": "^2.0.0-beta6",
+    "dotenv": "^4.0.0",
+	"jsonwebtoken" : "^8.0.1",
+	"body-parser" : "^1.0",
+	"morgan" : "^1.0"
+	
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
