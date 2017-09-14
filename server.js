@@ -16,7 +16,7 @@ var User   = require('./app/models/user'); // get our mongoose model
 var port = process.env.PORT || 8080;
 
 mongoose.connect(config.database); // connect to database
-app.set('mysecret', config.secret); // secret variable
+app.set('secretTo', config.secret); // secret variable
 
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -52,9 +52,10 @@ apiRoutes.post('/authenticate', function(req, res) {
 	  
         // if user is found and password is right
         // create a token
+				
 		try{
-        var token = jwt.sign(user, app.get('mysecret'), {
-          expiresInMinutes: 1440 // expires in 24 hours
+        var token = jwt.sign({user}, app.get('secretTo'), {
+          expiresIn: "1d" // expires in 24 hours
         });
 		}catch(e)
 		{
