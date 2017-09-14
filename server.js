@@ -75,6 +75,39 @@ apiRoutes.post('/authenticate', function(req, res) {
   });
 });
 
+// route middleware to verify a token
+apiRoutes.use(function(req, res, next) {
+
+  // check header or url parameters or post parameters for token
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  // decode token
+  if (token) {
+
+    // verifies secret and checks exp
+    jwt.verify(token, app.get('secretTo'), function(err, decoded) {      
+      if (err) {
+        return res.json({ success: false, message: 'Failed to authenticate token.' });    
+      } else {
+        // if everything is good, save to request for use in other routes
+        req.decoded = decoded;    
+        next();
+      }
+    });
+
+  } else {
+
+    // if there is no token
+    // return an error
+    return res.status(403).send({ 
+        success: false, 
+        message: 'No token provided.' 
+    });
+
+  }
+});
+
+
 
 // basic route
 apiRoutes.get('/', function(req, res) {
@@ -114,3 +147,5 @@ app.use('/api',apiRoutes);
 // =======================
 app.listen(port);
 
+/*token to verify
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjU5Yjg5ZWYwMjMxNGI0NGI0YzZmYzIzNCIsIm5hbWUiOiJBbmkgRGl3YWthciIsInBhc3N3b3JkIjoicGFzc3dvcmQiLCJhZG1pbiI6dHJ1ZSwiX192IjowfSwiaWF0IjoxNTA1MzU1MzIyLCJleHAiOjE1MDU0NDE3MjJ9.dmBsM_7DS5MBpf41sGGKQVSGoYoqyYqZxiludifnbjo*/
