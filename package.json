@@ -12,7 +12,7 @@
   "dependencies": {
     "debug": "^2.2.0",
     "express": "^4.14.0",
-    "mongoose": "^4.11.9",
+    "mongoose": "^5.12.2",
     "pug": "^2.0.0-beta6",
     "dotenv": "^4.0.0",
 	"jsonwebtoken" : "^8.0.1",
